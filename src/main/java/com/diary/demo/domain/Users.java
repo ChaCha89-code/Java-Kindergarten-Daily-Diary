@@ -8,28 +8,26 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "diaries")
+@Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
-public class Diary {
-
+public class Users {
     // 속성
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "user_id")
-    private Long usersId;
+    @Column(name = "email", nullable = false, length = 50)
+    private String email;
 
-    @Column(name = "title", nullable = false, length = 100)
-    private String title;
+    @Column(name = "user_name", nullable = false, length = 50)
+    private String userName;
 
-    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
-    private String content;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    @Column(name = "image")
-    private String image;
+    @Column(name = "user_image")
+    private String userImage;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
