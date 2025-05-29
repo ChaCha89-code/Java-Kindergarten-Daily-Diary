@@ -20,7 +20,7 @@ public class Diary {
     private Long id;
 
     @Column(name = "user_id")
-    private Long usersId;
+    private Long userId;
 
     @Column(name = "title", nullable = false, length = 100)
     private String title;
