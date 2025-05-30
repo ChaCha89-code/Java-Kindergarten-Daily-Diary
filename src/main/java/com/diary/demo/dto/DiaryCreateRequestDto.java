@@ -1,5 +1,7 @@
 package com.diary.demo.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 
 public class DiaryCreateRequestDto {
@@ -7,14 +9,14 @@ public class DiaryCreateRequestDto {
     private String userName;
     private String title;
     private String content;
-//    private String image;
+    private MultipartFile image; // the file itself at local
 
-    public DiaryCreateRequestDto(String email, String userName, String title, String content, String image) {
+    public DiaryCreateRequestDto(String email, String userName, String title, String content, MultipartFile image) {
         this.email = email;
         this.userName = userName;
         this.title = title;
         this.content = content;
-//        this.image = image;
+        this.image = image;
     }
 
     public String getEmail() {
@@ -31,5 +33,5 @@ public class DiaryCreateRequestDto {
 
     public String getContent() {return content; }
 
-//    public String getImage() {return image; }
+    public MultipartFile getImage() {return image; }
 }

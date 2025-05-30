@@ -34,8 +34,8 @@ public class Diary {
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
-//    @Column(name = "image")
-//    private String image;
+    @Column(name = "image")
+    private String image;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
@@ -48,11 +48,12 @@ public class Diary {
     // 생성자
 
 
-    public Diary(String email, String userName, String title, String content) {
+    public Diary(String email, String userName, String title, String content, String image) {
         this.email = email;
         this.userName = userName;
         this.title = title;
         this.content = content;
+        this.image = image;
     }
 
     public Diary() {
@@ -80,9 +81,9 @@ public class Diary {
         return content;
     }
 
-//    public String getImage() {
-//        return image;
-//    }
+    public String getImage() {
+        return image;
+    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
