@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.File;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,6 +25,16 @@ public class Diary {
 
     @Column(name = "title", nullable = false, length = 100)
     private String title;
+    /**
+     * 팀 회의때 추가하지 않아 loacl에서 추가
+     */
+    @Column(name = "email", nullable = false, length = 100)
+    private String email;
+    /**
+     * 팀 회의때 추가하지 않아 loacl에서 추가
+     */
+    @Column(name = "user_name", nullable = false, length = 50)
+    private String userName;
 
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
@@ -38,4 +49,51 @@ public class Diary {
     @Column(name = "updated_at", nullable = false)
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    public Diary(){}
+
+    public Diary(String title, String email, String userName, String content, String image) {
+        this.title = title;
+        this.email = email;
+        this.userName = userName;
+        this.content = content;
+        this.image = image;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }
+
