@@ -1,6 +1,7 @@
 package com.diary.demo.dto;
 
 import com.diary.demo.domain.Diary;
+
 import java.time.LocalDateTime;
 
 public class DiaryCreateResponseDto {
@@ -9,7 +10,7 @@ public class DiaryCreateResponseDto {
     private String userName;
     private String title;
     private String content;
-//    private String image;
+    private String image;
     private LocalDateTime createAt;
     private LocalDateTime updatedAt;
 
@@ -19,7 +20,7 @@ public class DiaryCreateResponseDto {
         this.userName = diary.getUserName();
         this.title = diary.getTitle();
         this.content = diary.getContent();
-//        this.image = diary.getImage();
+        this.image = diary.getImage();
         this.createAt = diary.getCreatedAt();
         this.updatedAt = diary.getUpdatedAt();
 
@@ -45,9 +46,7 @@ public class DiaryCreateResponseDto {
         return content;
     }
 
-//    public String getImage() {
-//        return image;
-//    }
+    public String getImage() { return image; }
 
     public LocalDateTime getCreateAt() {
         return createAt;

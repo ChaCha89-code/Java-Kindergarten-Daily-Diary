@@ -62,7 +62,7 @@ public class DiaryService {
         }
 
         // 2. 엔티티 만들기
-        Diary newDiary = new Diary(email, userName, title, content, url); // image 추가하면 여기에 넣어주기
+        Diary newDiary = new Diary(email, userName, title, content, url);
 
         // 3. 저장
         Diary savedDiary = diaryRepository.save(newDiary);

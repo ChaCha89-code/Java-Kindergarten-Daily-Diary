@@ -15,6 +15,8 @@ CREATE TABLE diaries
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '게시글 식별자',
     user_id BIGINT COMMENT '회원 식별자',
+    email VARCHAR(100) NOT NULL COMMENT '회원 이메일',
+    user_name VARCHAR(50) NOT NULL COMMENT '회원 이름',
     title VARCHAR(100) NOT NULL COMMENT '게시글 제목',
     content TEXT NOT NULL COMMENT '게시글 내용',
     image VARCHAR(255) COMMENT '작성자가 업로드할 이미지',

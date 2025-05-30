@@ -5,8 +5,6 @@ import com.diary.demo.service.DiaryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static javax.security.auth.callback.ConfirmationCallback.OK;
-
 @RestController
 @RequestMapping("/diaries")
 public class DiaryController {
