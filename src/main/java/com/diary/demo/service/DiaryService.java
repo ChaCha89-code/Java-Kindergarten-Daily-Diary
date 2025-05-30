@@ -1,19 +1,16 @@
 package com.diary.demo.service;
 
 import com.diary.demo.domain.Diary;
-import com.diary.demo.dto.DiaryCreateRequestDto;
-import com.diary.demo.dto.DiaryCreateResponseDto;
-import com.diary.demo.dto.DiaryListErrorResponseDto;
+
 import com.diary.demo.dto.DiaryListResponseDto;
 import com.diary.demo.repository.DiaryRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 
 @Service
