@@ -28,28 +28,7 @@ public class DiaryService {
     }
 
     //기
-    public DiaryCreateResponseDto createDiaryService(DiaryCreateRequestDto requestDto) {
-        // 1. 데이터 준비
-        String email = requestDto.getEmail();
-        String userName = requestDto.getUserName();
-        String title = requestDto.getTitle();
-        String content = requestDto.getContent();
-        String image = requestDto.getImage();
-        System.out.println("email = " + email);
-        System.out.println("userName = " + userName);
-        System.out.println("title = " + title);
-        System.out.println("content = " + content);
-        System.out.println("image = " + image);
-        // 2. 엔티티 만들기
-        Diary diaryEntity = new Diary(title, email, userName, content, image);
-        System.out.println("diaryEntity = " + diaryEntity);
-        // 3. 저장
-        Diary saveDiary = diaryRepository.save(diaryEntity);
-        System.out.println("saveDiary = " + saveDiary);
-        // 4. responseDto 반환
-        DiaryCreateResponseDto responseDto = new DiaryCreateResponseDto(saveDiary);
-        return responseDto;
-    }
+
 
     /**
      * createDiary를 List형태로 조회하는 로직

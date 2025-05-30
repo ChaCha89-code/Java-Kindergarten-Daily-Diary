@@ -27,14 +27,7 @@ public class DiaryController {
      * @param requestDto
      * @return
      */
-    @PostMapping
-    public ResponseEntity<DiaryCreateResponseDto> createDiaryAPI(@RequestBody DiaryCreateRequestDto requestDto){
-        // 데이터 준비
-        DiaryCreateResponseDto diaryCreateResponseDto = diaryService.createDiaryService(requestDto);
-        ResponseEntity<DiaryCreateResponseDto> response
-                = new ResponseEntity<>(diaryCreateResponseDto, HttpStatus.CREATED);
-        return response;
-    }
+
     /**
      * 게시글 전체조회 기능
      * http://localhost:8080/api/diaries
