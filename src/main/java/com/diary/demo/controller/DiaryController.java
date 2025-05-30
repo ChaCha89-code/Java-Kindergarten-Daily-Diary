@@ -44,6 +44,7 @@ public class DiaryController {
         // 1. 데이터 준비
 
         // 2. 반환
+        // try로 게시글에 null이 있을 경우 service에서 nullpointexception 발생 시킨 로직을 처리
         try {
             DiaryListResponseDto listResponseDto = diaryService.getDiaryListService();
             ResponseEntity<DiaryListResponseDto> response

@@ -54,7 +54,9 @@ public class DiaryService {
     /**
      * createDiary를 List형태로 조회하는 로직
      *
-     * @return
+     * @return listResponseDto를 반환
+     * diaryList가 null이 아니면 데이터를 조회하여 diaryDtoList에 add하여 for문으로 배열화 진행
+     * null 발생 시 NullPointerException throw 하여 Controller에서 catch할 수 있게 함
      */
     @Transactional
     public DiaryListResponseDto getDiaryListService() {
