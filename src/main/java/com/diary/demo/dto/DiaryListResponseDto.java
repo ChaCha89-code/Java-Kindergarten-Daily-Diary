@@ -5,19 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class DiaryListResponseDto {
     /**
      * final 선언으로 참조를 재할당 불가능하게 만듦
      */
     private final List<DiaryList> diaryList;
 
+
     public DiaryListResponseDto(List<DiaryList> diaryList){
         this.diaryList = diaryList;
+
     }
+
 
     public List<DiaryList> getDiaryList() {
         return diaryList;
     }
+
 
     /**
      * DiaryListResponseDto 의 class그룹화를 위해 Inner class 생성

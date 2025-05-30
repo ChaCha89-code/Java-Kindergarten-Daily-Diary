@@ -2,6 +2,7 @@ package com.diary.demo.controller;
 
 import com.diary.demo.dto.DiaryCreateRequestDto;
 import com.diary.demo.dto.DiaryCreateResponseDto;
+import com.diary.demo.dto.DiaryListErrorResponseDto;
 import com.diary.demo.dto.DiaryListResponseDto;
 import com.diary.demo.service.DiaryService;
 import org.springframework.http.HttpStatus;
@@ -39,12 +40,22 @@ public class DiaryController {
      * http://localhost:8080/api/diaries
      */
     @GetMapping
-    public ResponseEntity<DiaryListResponseDto> getDiaryListAPI(){
+    public ResponseEntity<?> getDiaryListAPI(){
         // 1. 데이터 준비
 
         // 2. 반환
-        DiaryListResponseDto listResponseDto = diaryService.getDiaryListService();
-        ResponseEntity<DiaryListResponseDto> response = new ResponseEntity<>(listResponseDto, HttpStatus.CREATED);
-        return response;
+        try {
+            DiaryListResponseDto listResponseDto = diaryService.getDiaryListService();
+            ResponseEntity<DiaryListResponseDto> response
+                    = new ResponseEntity<>(listResponseDto, HttpStatus.CREATED);
+            return response;
+        } catch (Exception e) {
+            DiaryListErrorResponseDto errorListResponseDto
+                    = new DiaryListErrorResponseDto(404, "게시글 정보 목록을 조회할 수 없습니다.");
+            ResponseEntity<DiaryListErrorResponseDto> errorResponseDto
+                    = new ResponseEntity<>(errorListResponseDto,HttpStatus.NOT_FOUND);
+            return errorResponseDto;
+        }
+
     }
 }

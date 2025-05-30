@@ -3,12 +3,17 @@ package com.diary.demo.service;
 import com.diary.demo.domain.Diary;
 import com.diary.demo.dto.DiaryCreateRequestDto;
 import com.diary.demo.dto.DiaryCreateResponseDto;
+import com.diary.demo.dto.DiaryListErrorResponseDto;
 import com.diary.demo.dto.DiaryListResponseDto;
 import com.diary.demo.repository.DiaryRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -18,13 +23,13 @@ public class DiaryService {
 
     //생
     // 생성자 안넣어서 자꾸 500번대 에러뜸..
-    public DiaryService(DiaryRepository diaryRepository){
+    public DiaryService(DiaryRepository diaryRepository) {
         this.diaryRepository = diaryRepository;
     }
 
     //기
     public DiaryCreateResponseDto createDiaryService(DiaryCreateRequestDto requestDto) {
-    // 1. 데이터 준비
+        // 1. 데이터 준비
         String email = requestDto.getEmail();
         String userName = requestDto.getUserName();
         String title = requestDto.getTitle();
@@ -48,28 +53,35 @@ public class DiaryService {
 
     /**
      * createDiary를 List형태로 조회하는 로직
+     *
      * @return
      */
+    @Transactional
     public DiaryListResponseDto getDiaryListService() {
         // 1. 데이터 준비(조회)
-        List<Diary> diaryList= diaryRepository.findAll();
+        List<Diary> diaryList = diaryRepository.findAll();
 
         List<DiaryListResponseDto.DiaryList> diaryDtoList = new ArrayList<>();
 
-        for (Diary diary : diaryList){
-            DiaryListResponseDto.DiaryList diaryListResponse
-                    = new DiaryListResponseDto.DiaryList(diary.getId(), diary.getEmail(),
-                            diary.getUserName(), diary.getTitle(), diary.getContent(),
-                            diary.getImage(), diary.getCreatedAt(), diary.getUpdatedAt());
+        if (!diaryList.isEmpty()) {
+            for (Diary diary : diaryList) {
+                DiaryListResponseDto.DiaryList diaryListResponse
+                        = new DiaryListResponseDto.DiaryList(diary.getId(), diary.getEmail(),
+                        diary.getUserName(), diary.getTitle(), diary.getContent(),
+                        diary.getImage(), diary.getCreatedAt(), diary.getUpdatedAt());
 
-            diaryDtoList.add(diaryListResponse);
+               diaryDtoList.add(diaryListResponse);
+            }
+            DiaryListResponseDto listResponseDto = new DiaryListResponseDto(diaryDtoList);
+            return listResponseDto;
+
+        } else {
+            throw new NullPointerException();
+
 
         }
 
         // 2. 반환 Dto 만들기
-        DiaryListResponseDto listResponseDto = new DiaryListResponseDto(diaryDtoList);
-
-        return listResponseDto;
-
     }
+
 }
