@@ -19,7 +19,8 @@ public class DiaryController {
      * 일정 생성 API
      */
     @PostMapping
-    public ResponseEntity<?> createDiaryAPI(@RequestBody DiaryCreateRequestDto requestDto) {
+    public ResponseEntity<?> createDiaryAPI(@ModelAttribute DiaryCreateRequestDto requestDto) {
         return diaryService.createDiaryService(requestDto);
     }
+    // @ModelAttribute : form-data 가능 (이미지 파일 등)
 }
