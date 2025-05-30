@@ -106,5 +106,6 @@ public class DiaryService {
             // 실패 응답
             throw new EntityNotFoundException("해당 ID의 게시글이 없습니다.");
         }
+
     }
 }

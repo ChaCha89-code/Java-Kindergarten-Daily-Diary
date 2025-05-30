@@ -35,7 +35,6 @@ public class DiaryController {
     }
     // @ModelAttribute : form-data 가능 (이미지 파일 등)
 
-
     // 게시글 상세 조회
     @GetMapping("/{id}")
     public ResponseEntity<?> getDiaryDetailAPI(@PathVariable("id") Long diaryId) {
@@ -50,5 +49,4 @@ public class DiaryController {
             return errorResponse;
         }
     }
-
 }

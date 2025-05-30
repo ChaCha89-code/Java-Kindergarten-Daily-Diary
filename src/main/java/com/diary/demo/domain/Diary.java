@@ -45,7 +45,7 @@ public class Diary {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-
+ 
     // 생성자
     public Diary(String email, String userName, String title, String content, String image) {
         this.email = email;
