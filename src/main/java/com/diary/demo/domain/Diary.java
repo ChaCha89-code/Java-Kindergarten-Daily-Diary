@@ -46,8 +46,6 @@ public class Diary {
     private LocalDateTime updatedAt;
 
     // 생성자
-
-
     public Diary(String email, String userName, String title, String content, String image) {
         this.email = email;
         this.userName = userName;
