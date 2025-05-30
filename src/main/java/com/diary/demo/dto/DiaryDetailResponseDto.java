@@ -1,7 +1,6 @@
 package com.diary.demo.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class DiaryDetailResponseDto {
     private Long id;
