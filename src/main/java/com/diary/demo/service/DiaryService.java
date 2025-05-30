@@ -23,24 +23,12 @@ public class DiaryService {
     /**
      * 일정 삭제 서비스
      */
-    public ResponseEntity<?> deleteDiaryService(Long diaryId) {
-        Optional<Diary> optionalDiary = diaryRepository.findById(diaryId);
-
-        if (optionalDiary.isPresent()) {
-            diaryRepository.delete(optionalDiary.get());
-            DiaryDeleteResponseDto success = new DiaryDeleteResponseDto(200, "삭제 완료");
-            return ResponseEntity.ok(success); // 200 OK, body 없음
+    public void deleteDiaryService(Long diaryId) {
+        Optional<Diary> diaryOptional = diaryRepository.findById(diaryId);
+        if (diaryOptional.isPresent()) {
+            diaryRepository.delete(diaryOptional.get());
         } else {
-            DiaryDeleteErrorResponseDto error = new DiaryDeleteErrorResponseDto(404, "삭제하려는 일정이 존재하지 않습니다.");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+            throw new IllegalArgumentException("삭제하려는 일정이 존재하지 않습니다.");
         }
     }
-    /// //////////위가 최종본, 아래와의 차이점 알아보기
-//    public ResponseEntity<?> deleteDiaryService(Long diaryId) {
-//        Optional<Diary> optionalDiary = diaryRepository.findById(diaryId);
-//
-//        if (optionalDiary.isEmpty()) {
-//            DiaryDeleteErrorResponseDto error = new DiaryDeleteErrorResponseDto(404, "해당 일정이 존재하지 않습니다");
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-//        }
 }

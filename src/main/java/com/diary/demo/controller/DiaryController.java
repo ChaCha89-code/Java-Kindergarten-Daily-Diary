@@ -4,7 +4,10 @@ import com.diary.demo.dto.DiaryDeleteRequestDto;
 import com.diary.demo.dto.DiaryDeleteResponseDto;
 import com.diary.demo.service.DiaryService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,6 +24,12 @@ public class DiaryController {
      */
     @DeleteMapping("/{diaryId}")
     public ResponseEntity<?> deleteDiaryAPI(@PathVariable Long diaryId) {
-        return diaryService.deleteDiaryService(diaryId);
+        try {
+            diaryService.deleteDiaryService(diaryId);
+            return ResponseEntity.ok(new DiaryDeleteResponseDto(200, "deleted"));
+        } catch (IllegalArgumentException e) {
+            //errorDto에 status와 메시지 넣어 반환
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DiaryDeleteResponseDto(404, e.getMessage()));
+                }
     }
 }
