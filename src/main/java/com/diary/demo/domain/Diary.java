@@ -45,6 +45,7 @@ public class Diary {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+ 
     // 생성자
     public Diary(String email, String userName, String title, String content, String image) {
         this.email = email;
@@ -61,6 +62,10 @@ public class Diary {
     // 기능
     public Long getId() {
         return id;
+    }
+
+    public Long getUserId() {
+        return userId;
     }
 
     public String getEmail() {
