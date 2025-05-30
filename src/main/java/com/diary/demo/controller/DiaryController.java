@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.diary.demo.dto.DiaryCreateRequestDto;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/diaries")
 public class DiaryController {
+
     // 속성
     private final DiaryService diaryService;
 
@@ -23,6 +26,15 @@ public class DiaryController {
     }
 
     // 기능
+    /**
+     * 일정 생성 API
+     */
+    @PostMapping
+    public ResponseEntity<?> createDiaryAPI(@ModelAttribute DiaryCreateRequestDto requestDto) {
+        return diaryService.createDiaryService(requestDto);
+    }
+    // @ModelAttribute : form-data 가능 (이미지 파일 등)
+
 
     // 게시글 상세 조회
     @GetMapping("/{id}")

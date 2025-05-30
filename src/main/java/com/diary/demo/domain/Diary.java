@@ -46,33 +46,53 @@ public class Diary {
     private LocalDateTime updatedAt;
 
 
-    // 게터
+    // 생성자
+    public Diary(String email, String userName, String title, String content, String image) {
+        this.email = email;
+        this.userName = userName;
+        this.title = title;
+        this.content = content;
+        this.image = image;
+    }
+
+    public Diary() {
+
+    }
+
+    // 기능
     public Long getId() {
         return id;
     }
+
     public Long getUserId() {
         return userId;
     }
+
     public String getEmail() {
         return email;
     }
+
     public String getUserName() {
         return userName;
     }
+
     public String getTitle() {
         return title;
     }
+
     public String getContent() {
         return content;
     }
+
     public String getImage() {
         return image;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
-
 }
