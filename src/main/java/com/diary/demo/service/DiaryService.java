@@ -1,17 +1,17 @@
 package com.diary.demo.service;
 
 import com.diary.demo.domain.Diary;
-import com.diary.demo.dto.DiaryDetailResponseDto;
+import com.diary.demo.dto.*;
 import com.diary.demo.repository.DiaryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import com.diary.demo.dto.DiaryCreateErrorResponseDto;
-import com.diary.demo.dto.DiaryCreateRequestDto;
-import com.diary.demo.dto.DiaryCreateResponseDto;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -107,5 +107,42 @@ public class DiaryService {
             throw new EntityNotFoundException("해당 ID의 게시글이 없습니다.");
         }
 
+    }
+
+    /**
+     * createDiary를 List형태로 조회하는 로직
+     *
+     * @return listResponseDto를 반환
+     * diaryList가 null이 아니면 데이터를 조회하여 diaryDtoList에 add하여 for문으로 배열화를 진행하였습니다
+     * null 발생 시 NullPointerException throw 하여 Controller에서 catch할 수 있게 하였습니다
+     */
+    @jakarta.transaction.Transactional
+    public DiaryListResponseDto getDiaryListService() {
+        // 1. 데이터 준비(조회)
+        List<Diary> diaryList = diaryRepository.findAll();
+
+        List<DiaryListResponseDto.DiaryList> diaryDtoList = new ArrayList<>();
+
+        if (!diaryList.isEmpty()) {
+            for (Diary diary : diaryList) {
+                DiaryListResponseDto.DiaryList diaryListResponse
+                        = new DiaryListResponseDto.DiaryList(diary.getId(), diary.getEmail(),
+                        diary.getUserName(), diary.getTitle(), diary.getContent(),
+                        diary.getImage(), diary.getCreatedAt(), diary.getUpdatedAt());
+
+                diaryDtoList.add(diaryListResponse);
+            }
+            // diaryList.isEmpty()이 아닐 때 성공 응답
+            DiaryListResponseDto listResponseDto = new DiaryListResponseDto(diaryDtoList);
+            return listResponseDto;
+
+        } else {
+            // null 발생시 예외처리
+            throw new NullPointerException();
+
+
+        }
+
+        // 2. 반환 Dto 만들기
     }
 }
