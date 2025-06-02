@@ -36,4 +36,43 @@ public class Users {
     @Column(name = "updated_at", nullable = false)
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    // 생성자
+    public Users(String userName, String email, String password, String userImage) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.userImage = userImage;
+    }
+
+    public Users() {}
+
+    // 기능
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }

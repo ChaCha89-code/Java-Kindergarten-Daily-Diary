@@ -27,15 +27,15 @@ public class DiaryService {
     // 속성
     private final DiaryRepository diaryRepository;
 
+    @Value("${file.path}")
+    private String uploadFolder;
+
     // 생성자
     public DiaryService(DiaryRepository diaryRepository) {
         this.diaryRepository = diaryRepository;
     }
 
     // 기능
-    @Value("${file.path}")
-    private String uploadFolder;
-
     @Transactional
     public ResponseEntity<?> createDiaryService(DiaryCreateRequestDto requestDto) {
 
