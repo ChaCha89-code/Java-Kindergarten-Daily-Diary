@@ -74,6 +74,23 @@ public class DiaryController {
         }
     }
 
+    // 게시글 수정
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateDiaryAPI(
+            @PathVariable("id") Long diaryId,
+            @RequestBody DiaryUpdateRequestDto updateRequestDto
+    ) {
+        try {
+            DiaryUpdateResponseDto updateResponseDto = diaryService.updateDiaryService(diaryId, updateRequestDto);
+            ResponseEntity<?> response = new ResponseEntity<>(updateResponseDto, HttpStatus.OK);
+            return response;
+        }
+        catch (EntityNotFoundException e) {
+            DiaryUpdateErrorResponseDto updateErrorResponseDto = new DiaryUpdateErrorResponseDto(404, "해당 게시글을 찾을 수 없습니다.");
+            ResponseEntity<?> errorResponse = new ResponseEntity<>(updateErrorResponseDto, HttpStatus.NOT_FOUND);
+            return errorResponse;
+        }
+    }
     /**
      * 일정 삭제 API
      */

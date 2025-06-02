@@ -95,4 +95,10 @@ public class Diary {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
+    public void updateDiary(String title, String content, String image) {
+        this.title = title;
+        this.content = content;
+        this.image = image;
+    }
 }
