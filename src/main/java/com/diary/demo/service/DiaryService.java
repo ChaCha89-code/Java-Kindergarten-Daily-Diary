@@ -145,4 +145,16 @@ public class DiaryService {
 
         // 2. 반환 Dto 만들기
     }
+
+    /**
+     * 일정 삭제 서비스
+     */
+    public void deleteDiaryService(Long diaryId) {
+        Optional<Diary> diaryOptional = diaryRepository.findById(diaryId);
+        if (diaryOptional.isPresent()) {
+            diaryRepository.delete(diaryOptional.get());
+        } else {
+            throw new IllegalArgumentException("삭제하려는 일정이 존재하지 않습니다.");
+        }
+    }
 }
