@@ -1,10 +1,11 @@
 package com.diary.demo.dto;
 
-public class DiaryDeleteResponseDto {
+public class DiaryDeleteErrorResponseDto {
+
     private final int status;
     private final String message;
 
-    public DiaryDeleteResponseDto(int status, String message) {
+    public DiaryDeleteErrorResponseDto(int status, String message) {
         this.status = status;
         this.message = message;
     }

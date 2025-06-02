@@ -1,6 +1,9 @@
 package com.diary.demo.controller;
 
 import com.diary.demo.dto.*;
+import com.diary.demo.dto.DiaryDeleteResponseDto;
+import com.diary.demo.dto.DiaryDetailErrorResponseDto;
+import com.diary.demo.dto.DiaryDetailResponseDto;
 import com.diary.demo.service.DiaryService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -53,7 +56,7 @@ public class DiaryController {
      * @return 성공 응답 및 null값이 있다면 예외처리 후 실패메세지 반환
      */
     @GetMapping
-    public ResponseEntity<?> getDiaryListAPI(){
+    public ResponseEntity<?> getDiaryListAPI() {
 
         // 2. 반환
         // try로 게시글에 null이 있을 경우 service에서 nullpointexception 발생 시킨 로직을 처리
@@ -66,9 +69,22 @@ public class DiaryController {
             DiaryListErrorResponseDto errorListResponseDto
                     = new DiaryListErrorResponseDto(404, "게시글 정보 목록을 조회할 수 없습니다.");
             ResponseEntity<DiaryListErrorResponseDto> errorResponseDto
-                    = new ResponseEntity<>(errorListResponseDto,HttpStatus.NOT_FOUND);
+                    = new ResponseEntity<>(errorListResponseDto, HttpStatus.NOT_FOUND);
             return errorResponseDto;
         }
+    }
 
+    /**
+     * 일정 삭제 API
+     */
+    @DeleteMapping("/{diaryId}")
+    public ResponseEntity<?> deleteDiaryAPI(@PathVariable Long diaryId) {
+        try {
+            diaryService.deleteDiaryService(diaryId);
+            return ResponseEntity.ok(new DiaryDeleteResponseDto(200, "deleted"));
+        } catch (IllegalArgumentException e) {
+            //errorDto에 status와 메시지 넣어 반환
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DiaryDeleteErrorResponseDto(404, e.getMessage()));
+        }
     }
 }
