@@ -139,8 +139,6 @@ public class DiaryService {
         } else {
             // null 발생시 예외처리
             throw new NullPointerException();
-
-
         }
 
         // 2. 반환 Dto 만들기
