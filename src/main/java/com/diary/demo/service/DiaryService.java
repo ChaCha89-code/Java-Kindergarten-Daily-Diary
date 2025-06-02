@@ -146,6 +146,39 @@ public class DiaryService {
         // 2. 반환 Dto 만들기
     }
 
+    // 게시글 수정
+    @Transactional
+    public DiaryUpdateResponseDto updateDiaryService(Long diaryId, DiaryUpdateRequestDto updateRequestDto) {
+        // 1. 데이터 준비
+        String title = updateRequestDto.getTitle();
+        String content = updateRequestDto.getContent();
+        String image = updateRequestDto.getImage();
+
+        // 2. 조회
+        Optional<Diary> diaryOptional = diaryRepository.findById(diaryId);
+        if (diaryOptional.isPresent()) {
+            Diary diary = diaryOptional.get();
+            diary.updateDiary(title, content, image);
+
+            // 3. dto 반환
+            DiaryUpdateResponseDto updateResponseDto = new DiaryUpdateResponseDto(
+                    diary.getId(),
+                    diary.getEmail(),
+                    diary.getUserName(),
+                    diary.getImage(),
+                    diary.getTitle(),
+                    diary.getContent(),
+                    diary.getCreatedAt(),
+                    diary.getUpdatedAt()
+            );
+            return updateResponseDto;
+
+        } else {
+            // 4. 실패 응답 dto 반환
+            throw new EntityNotFoundException("해당 ID의 게시글이 없습니다.");
+        }
+    }
+
     /**
      * 일정 삭제 서비스
      */
