@@ -3,6 +3,7 @@ package com.diary.demo.diaryDto;
 import org.springframework.web.multipart.MultipartFile;
 
 public class DiaryCreateRequestDto {
+    private Long userId;
     private String email;
     private String userName;
     private String title;
@@ -15,6 +16,10 @@ public class DiaryCreateRequestDto {
         this.title = title;
         this.content = content;
         this.image = image;
+    }
+
+    public Long getUserId() {
+        return userId;
     }
 
     public String getEmail() {

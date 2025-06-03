@@ -1,6 +1,10 @@
 package com.diary.demo.service;
 
+import com.diary.demo.diaryDto.DiaryDetailResponseDto;
+
+import com.diary.demo.domain.Diary;
 import com.diary.demo.domain.Users;
+import com.diary.demo.repository.DiaryRepository;
 import com.diary.demo.repository.UserRepository;
 import com.diary.demo.userDto.*;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,14 +29,18 @@ public class UserService {
     // 속성
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final DiaryRepository diaryRepository;
 
     @Value("${file.path}")
     private String uploadFolder;
 
     // 생성자
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       DiaryRepository diaryRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.diaryRepository =diaryRepository;
     }
 
     // 기능
@@ -142,6 +152,7 @@ public class UserService {
         String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+=-]).{8,20}$";
         return password.matches(regex);
     }
+
     // 회원 삭제 기능
     @Transactional
     public UserDeleteResponseDto deleteUserService(UserDeleteRequestDto requestDto) {
@@ -170,5 +181,41 @@ public class UserService {
             //회원 조회 실패 시 응답 반환
             throw new IllegalArgumentException("아이디가 일치하지 않습니다.");
         }
+    }
+
+    /**
+     * 회원 조회 기능
+     *
+     * @param userId 으로 받은 데이터는 userRepository에서 데이터 조회하여 메서드 로직을 실행 할 수 있게 했습니다
+     * @return userId가 null이 아니라면 userDetailResponseDto;를 null이 있다면 NullPointException 발생시켰습니다
+     */
+    @jakarta.transaction.Transactional
+    public UserDetailResponseDto getUserDetailService(Long userId) {
+
+        Optional<Users> usersOptional = userRepository.findById(userId);
+        if (usersOptional.isPresent()) {
+            Users findUser = usersOptional.get();
+
+            List<Diary> allByUserId = diaryRepository.findAllByUserName(findUser.getUserName());
+
+            List<UserDetailDairyListResponseDto> dtoList = new ArrayList<>();
+
+            for (Diary diary : allByUserId) {
+
+                UserDetailDairyListResponseDto detailResponseDto
+                        = new UserDetailDairyListResponseDto( diary.getTitle(),diary.getCreatedAt());
+
+                dtoList.add(detailResponseDto);
+            }
+
+            UserDetailResponseDto userDetailResponseDto
+                    = new UserDetailResponseDto(findUser, dtoList);
+            return userDetailResponseDto;
+
+        } else {
+            throw new NullPointerException();
+        }
+
+
     }
 }

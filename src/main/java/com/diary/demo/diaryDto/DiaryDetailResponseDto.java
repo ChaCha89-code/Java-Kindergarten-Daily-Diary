@@ -22,6 +22,10 @@ public class DiaryDetailResponseDto {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+    public DiaryDetailResponseDto(String title, LocalDateTime createdAt){
+        this.title = title;
+        this.createdAt = createdAt;
+    }
 
     public Long getId() {
         return id;

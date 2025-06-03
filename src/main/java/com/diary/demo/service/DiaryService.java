@@ -40,6 +40,7 @@ public class DiaryService {
     public ResponseEntity<?> createDiaryService(DiaryCreateRequestDto requestDto) {
 
         // 1. 데이터 준비
+        Long id = requestDto.getUserId();
         String email = requestDto.getEmail();
         String userName = requestDto.getUserName();
         String title = requestDto.getTitle();
@@ -69,7 +70,7 @@ public class DiaryService {
         }
 
         // 2. 엔티티 만들기
-        Diary newDiary = new Diary(email, userName, title, content, url);
+        Diary newDiary = new Diary(id,email, userName, title, content, url);
 
         // 3. 저장
         Diary savedDiary = diaryRepository.save(newDiary);
