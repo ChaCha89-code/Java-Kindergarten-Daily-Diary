@@ -8,6 +8,7 @@ import com.diary.demo.userDto.UserCreateResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,13 +22,15 @@ public class UserService {
 
     // 속성
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Value("${file.path}")
     private String uploadFolder;
 
     // 생성자
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // 기능
@@ -65,9 +68,9 @@ public class UserService {
 
         // 4) 이미지 저장 로직
         String url = null;
-        if(image != null) {
+        if(image != null && !image.isEmpty()) {
             UUID uuid = UUID.randomUUID();
-            String imageFileName = uuid + "_" + requestDto.getUserImage().getOriginalFilename(); // getOriginalFilename() - 실제 이미지 파일의 이름
+            String imageFileName = uuid + "_" + image.getOriginalFilename(); // getOriginalFilename() - 실제 이미지 파일의 이름
             System.out.println("이미지 파일 이름: " + imageFileName);
 
             url = uploadFolder + imageFileName;
@@ -77,17 +80,21 @@ public class UserService {
                 Files.write(imageFilePath, requestDto.getUserImage().getBytes());
             } catch (Exception e) {
                 e.printStackTrace();
+                UserCreateErrorResponseDto error = new UserCreateErrorResponseDto(500, "이미지 저장 중 오류가 발생했습니다.");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
             }
-
         }
 
-        // 2. 엔티티 만들기 (유저 저장)
-        Users newUser = new Users(userName, email, password, url);
+        // 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(password);
 
-        // 3. 저장 (유저 저장)
-        Users savedUser = userRepository.save(newUser);
+        // 2. 유저 엔티티 생성
+        Users newUser = new Users(userName, email, encodedPassword, url);
 
-        // 4. responseDto 반환
+        // 3. 저장
+        userRepository.save(newUser);
+
+        // 4. 응답 반환
         return ResponseEntity.ok(new UserCreateResponseDto(201, "회원가입이 정상적으로 완료 되었습니다."));
 
     }
