@@ -1,4 +1,4 @@
-package com.diary.demo.dto;
+package com.diary.demo.diaryDto;
 
 public class DiaryDeleteResponseDto {
     private final int status;

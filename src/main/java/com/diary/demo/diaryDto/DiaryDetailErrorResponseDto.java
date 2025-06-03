@@ -1,11 +1,10 @@
-package com.diary.demo.dto;
+package com.diary.demo.diaryDto;
 
-public class DiaryCreateErrorResponseDto {
-
+public class DiaryDetailErrorResponseDto {
     private final int status;
     private final String message;
 
-    public DiaryCreateErrorResponseDto(int status, String message) {
+    public DiaryDetailErrorResponseDto(int status, String message) {
         this.status = status;
         this.message = message;
     }
@@ -13,11 +12,7 @@ public class DiaryCreateErrorResponseDto {
     public int getStatus() {
         return status;
     }
-
     public String getMessage() {
         return message;
     }
-
-    // This object is read-only.
-    // All the values are set in the constructor at once.
 }

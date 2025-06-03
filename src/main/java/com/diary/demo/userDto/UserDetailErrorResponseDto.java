@@ -1,15 +1,15 @@
-package com.diary.demo.dto;
+package com.diary.demo.userDto;
 
-public class DiaryListErrorResponseDto {
+public class UserDetailErrorResponseDto {
     private Integer status;
     private String message;
 
-    public DiaryListErrorResponseDto(Integer status, String message){
+    public UserDetailErrorResponseDto(Integer status, String message) {
         this.status = status;
         this.message = message;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 

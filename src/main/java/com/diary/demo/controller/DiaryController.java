@@ -1,9 +1,9 @@
 package com.diary.demo.controller;
 
-import com.diary.demo.dto.*;
-import com.diary.demo.dto.DiaryDeleteResponseDto;
-import com.diary.demo.dto.DiaryDetailErrorResponseDto;
-import com.diary.demo.dto.DiaryDetailResponseDto;
+import com.diary.demo.diaryDto.*;
+import com.diary.demo.diaryDto.DiaryDeleteResponseDto;
+import com.diary.demo.diaryDto.DiaryDetailErrorResponseDto;
+import com.diary.demo.diaryDto.DiaryDetailResponseDto;
 import com.diary.demo.service.DiaryService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
