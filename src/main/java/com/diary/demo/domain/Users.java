@@ -26,9 +26,6 @@ public class Users {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "check_password", nullable = false)
-    private String checkPassword;
-
     @Column(name = "user_image")
     private String userImage;
 
@@ -65,10 +62,6 @@ public class Users {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getCheckPassword() {
-        return checkPassword;
     }
 
     public String getUserImage() {
