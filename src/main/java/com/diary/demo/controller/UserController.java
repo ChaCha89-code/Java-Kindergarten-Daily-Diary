@@ -1,13 +1,10 @@
 package com.diary.demo.controller;
 
 import com.diary.demo.service.UserService;
-import com.diary.demo.userDto.UserUpdateErrorResponseDto;
-import com.diary.demo.userDto.UserUpdateRequestDto;
-import com.diary.demo.userDto.UserUpdateResponseDto;
+import com.diary.demo.userDto.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import com.diary.demo.userDto.UserCreateRequestDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,5 +54,19 @@ public class UserController {
     @PostMapping
     public ResponseEntity<?> createUserAPI(@ModelAttribute UserCreateRequestDto requestDto) {
         return userService.createUserService(requestDto);
+    }
+    /**
+     * 회원 삭제 API
+     */
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteUserAPI(@RequestBody UserDeleteRequestDto requestDto) {
+        try {
+            UserDeleteResponseDto responseDto = userService.deleteUserService(requestDto);
+            ResponseEntity<?> response = new ResponseEntity<>(responseDto, HttpStatus.OK);
+            return response;
+        } catch (IllegalArgumentException e) {
+            UserDeleteErrorResponseDto deleteerrorResponseDto = new UserDeleteErrorResponseDto(400, e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }
