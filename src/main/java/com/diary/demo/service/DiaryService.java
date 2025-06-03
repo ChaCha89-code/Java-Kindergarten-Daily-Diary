@@ -1,7 +1,7 @@
 package com.diary.demo.service;
 
 import com.diary.demo.domain.Diary;
-import com.diary.demo.dto.*;
+import com.diary.demo.diaryDto.*;
 import com.diary.demo.repository.DiaryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
