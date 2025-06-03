@@ -1,8 +1,8 @@
-package com.diary.demo.dto;
+package com.diary.demo.diaryDto;
 
 import java.time.LocalDateTime;
 
-public class DiaryDetailResponseDto {
+public class DiaryUpdateResponseDto {
     private Long id;
     private String email;
     private String userName;
@@ -12,13 +12,13 @@ public class DiaryDetailResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public DiaryDetailResponseDto(Long id, String email, String userName, String title, String content, String image, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public DiaryUpdateResponseDto(Long id, String email, String userName, String image, String title, String content,  LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.email = email;
         this.userName = userName;
+        this.image = image;
         this.title = title;
         this.content = content;
-        this.image = image;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -32,14 +32,14 @@ public class DiaryDetailResponseDto {
     public String getUserName() {
         return userName;
     }
+    public String getImage() {
+        return image;
+    }
     public String getTitle() {
         return title;
     }
     public String getContent() {
         return content;
-    }
-    public String getImage() {
-        return image;
     }
     public LocalDateTime getCreatedAt() {
         return createdAt;

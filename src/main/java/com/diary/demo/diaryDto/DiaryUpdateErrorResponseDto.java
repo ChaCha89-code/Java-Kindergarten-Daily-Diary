@@ -1,11 +1,10 @@
-package com.diary.demo.dto;
+package com.diary.demo.diaryDto;
 
-public class DiaryDeleteErrorResponseDto {
-
+public class DiaryUpdateErrorResponseDto {
     private final int status;
     private final String message;
 
-    public DiaryDeleteErrorResponseDto(int status, String message) {
+    public DiaryUpdateErrorResponseDto(int status, String message) {
         this.status = status;
         this.message = message;
     }
@@ -13,7 +12,6 @@ public class DiaryDeleteErrorResponseDto {
     public int getStatus() {
         return status;
     }
-
     public String getMessage() {
         return message;
     }
