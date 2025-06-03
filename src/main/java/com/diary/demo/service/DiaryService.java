@@ -27,15 +27,15 @@ public class DiaryService {
     // 속성
     private final DiaryRepository diaryRepository;
 
+    @Value("${file.path}")
+    private String uploadFolder;
+
     // 생성자
     public DiaryService(DiaryRepository diaryRepository) {
         this.diaryRepository = diaryRepository;
     }
 
     // 기능
-    @Value("${file.path}")
-    private String uploadFolder;
-
     @Transactional
     public ResponseEntity<?> createDiaryService(DiaryCreateRequestDto requestDto) {
 
@@ -55,7 +55,7 @@ public class DiaryService {
         String url = null;
         if(image != null) {
             UUID uuid = UUID.randomUUID();
-            String imageFileName = uuid + "_" + requestDto.getImage().getOriginalFilename(); // getOriginalFilename() - 실제 이미지 파일의 이름
+            String imageFileName = uuid + "_" + requestDto.getImage().getOriginalFilename();
             System.out.println("이미지 파일 이름: " + imageFileName);
 
             url = uploadFolder + imageFileName;

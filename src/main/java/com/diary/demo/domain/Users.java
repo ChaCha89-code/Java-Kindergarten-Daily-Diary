@@ -41,17 +41,14 @@ public class Users {
     private LocalDateTime updatedAt;
 
     // 생성자
-    public Users(String userName, String email, String password, String checkPassword, String userImage) {
+    public Users(String userName, String email, String password, String userImage) {
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.checkPassword = checkPassword;
         this.userImage = userImage;
     }
 
-    public Users() {
-
-    }
+    public Users() {}
 
     // 기능
     public Long getId() {
@@ -89,6 +86,7 @@ public class Users {
     public void changePassword(String newPassword) {
         this.password = newPassword;
     }
+
     public void updateUserImage(String newUserImage) {
         this.userImage = newUserImage;
     }

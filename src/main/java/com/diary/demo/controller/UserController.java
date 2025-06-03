@@ -6,11 +6,16 @@ import com.diary.demo.userDto.UserUpdateRequestDto;
 import com.diary.demo.userDto.UserUpdateResponseDto;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.diary.demo.userDto.UserCreateRequestDto;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
     // 속성
     private final UserService userService;
@@ -21,7 +26,6 @@ public class UserController {
     }
 
     // 기능
-
     // 회원 정보 수정
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateUserAPI(
@@ -49,4 +53,9 @@ public class UserController {
 
     }
 
+    // 기능 - @ModelAttribute : form-data 가능 (이미지 파일 등)
+    @PostMapping
+    public ResponseEntity<?> createUserAPI(@ModelAttribute UserCreateRequestDto requestDto) {
+        return userService.createUserService(requestDto);
+    }
 }
