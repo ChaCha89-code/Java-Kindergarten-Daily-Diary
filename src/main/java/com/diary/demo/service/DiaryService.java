@@ -27,19 +27,20 @@ public class DiaryService {
     // 속성
     private final DiaryRepository diaryRepository;
 
+    @Value("${file.path}")
+    private String uploadFolder;
+
     // 생성자
     public DiaryService(DiaryRepository diaryRepository) {
         this.diaryRepository = diaryRepository;
     }
 
     // 기능
-    @Value("${file.path}")
-    private String uploadFolder;
-
     @Transactional
     public ResponseEntity<?> createDiaryService(DiaryCreateRequestDto requestDto) {
 
         // 1. 데이터 준비
+        Long id = requestDto.getUserId();
         String email = requestDto.getEmail();
         String userName = requestDto.getUserName();
         String title = requestDto.getTitle();
@@ -55,7 +56,7 @@ public class DiaryService {
         String url = null;
         if(image != null) {
             UUID uuid = UUID.randomUUID();
-            String imageFileName = uuid + "_" + requestDto.getImage().getOriginalFilename(); // getOriginalFilename() - 실제 이미지 파일의 이름
+            String imageFileName = uuid + "_" + requestDto.getImage().getOriginalFilename();
             System.out.println("이미지 파일 이름: " + imageFileName);
 
             url = uploadFolder + imageFileName;
@@ -69,7 +70,7 @@ public class DiaryService {
         }
 
         // 2. 엔티티 만들기
-        Diary newDiary = new Diary(email, userName, title, content, url);
+        Diary newDiary = new Diary(id,email, userName, title, content, url);
 
         // 3. 저장
         Diary savedDiary = diaryRepository.save(newDiary);

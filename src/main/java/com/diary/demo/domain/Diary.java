@@ -47,7 +47,8 @@ public class Diary {
 
  
     // 생성자
-    public Diary(String email, String userName, String title, String content, String image) {
+    public Diary(Long id, String email, String userName, String title, String content, String image) {
+        this.id = id;
         this.email = email;
         this.userName = userName;
         this.title = title;
