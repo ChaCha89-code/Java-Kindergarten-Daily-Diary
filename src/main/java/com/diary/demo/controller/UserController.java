@@ -55,20 +55,21 @@ public class UserController {
     public ResponseEntity<?> createUserAPI(@ModelAttribute UserCreateRequestDto requestDto) {
         return userService.createUserService(requestDto);
     }
+
     /**
      * 회원 삭제 API
      */
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUserAPI(@RequestBody UserDeleteRequestDto requestDto) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUserAPI(@PathVariable Long id) {
         try {
-            UserDeleteResponseDto responseDto = userService.deleteUserService(requestDto);
-            ResponseEntity<?> response = new ResponseEntity<>(responseDto, HttpStatus.OK);
-            return response;
+            UserDeleteResponseDto responseDto = userService.deleteUserService(id);
+            return ResponseEntity.ok(responseDto);
         } catch (IllegalArgumentException e) {
-            UserDeleteErrorResponseDto deleteerrorResponseDto = new UserDeleteErrorResponseDto(400, e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            UserDeleteErrorResponseDto errorResponseDto = new UserDeleteErrorResponseDto(400, e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseDto);
         }
     }
+
 
     /**
      * 회원 조회 API
